@@ -1,22 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [currentNumbers, setCurrentNumbers] = useState(Array(6).fill(0));
+  const [isSpinning, setIsSpinning] = useState(false);
+
+  const startSpin = () => {
+    setIsSpinning(true);
+  };
+
+  useEffect(() => {
+    const spinDuration = 10000; // Set the duration of the spin (in milliseconds)
+    let startTime;
+    let animationFrameId;
+
+    const spinAnimation = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
+      }
+
+      const elapsedTime = timestamp - startTime;
+      const progress = Math.min(elapsedTime / spinDuration, 1);
+
+      if (progress < 1) {
+        const newNumbers = Array(6)
+          .fill()
+          .map(() => Math.floor(Math.random() * 10));
+        setCurrentNumbers(newNumbers);
+        animationFrameId = requestAnimationFrame(spinAnimation);
+      } else {
+        setIsSpinning(false);
+        // Generate final numbers after the spin is complete
+        const newNumbers = Array(6)
+          .fill()
+          .map(() => Math.floor(Math.random() * 10));
+        setCurrentNumbers(newNumbers);
+      }
+    };
+
+    if (isSpinning) {
+      animationFrameId = requestAnimationFrame(spinAnimation);
+    }
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [isSpinning]);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          <h2>Lottery Spinner</h2>
+          <div className="spinner-container">
+            <div className={`spinner-numbers ${isSpinning ? "spinning" : ""}`}>
+              {currentNumbers.map((number, index) => (
+                <div key={index} className="spinner-number">
+                  {number}
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            style={{ marginTop: "20px" }}
+            onClick={startSpin}
+            disabled={isSpinning}
+          >
+            {isSpinning ? "Spinning..." : "Spin"}
+          </button>
+        </div>
       </header>
     </div>
   );

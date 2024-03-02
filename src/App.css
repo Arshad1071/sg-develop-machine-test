@@ -28,6 +28,52 @@
   color: #61dafb;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.spinner-number {
+  margin: 0 8px;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  width: 40px;
+  text-align: center;
+}
+
+.spinner-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinning .spinner-number {
+  animation: spin 5s linear infinite;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
