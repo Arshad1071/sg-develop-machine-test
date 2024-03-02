@@ -4,13 +4,15 @@ import "./App.css";
 function App() {
   const [currentNumbers, setCurrentNumbers] = useState(Array(6).fill(0));
   const [isSpinning, setIsSpinning] = useState(false);
+  const [isResultDisplayed, setIsResultDisplayed] = useState(false);
 
   const startSpin = () => {
     setIsSpinning(true);
+    setIsResultDisplayed(false);
   };
 
   useEffect(() => {
-    const spinDuration = 10000; // Set the duration of the spin (in milliseconds)
+    const spinDuration = 8000; // Set the duration of the spin (in milliseconds)
     let startTime;
     let animationFrameId;
 
@@ -30,6 +32,7 @@ function App() {
         animationFrameId = requestAnimationFrame(spinAnimation);
       } else {
         setIsSpinning(false);
+        setIsResultDisplayed(true);
         // Generate final numbers after the spin is complete
         const newNumbers = Array(6)
           .fill()
@@ -48,6 +51,7 @@ function App() {
       }
     };
   }, [isSpinning]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -69,6 +73,11 @@ function App() {
           >
             {isSpinning ? "Spinning..." : "Spin"}
           </button>
+          {isResultDisplayed && (
+            <div className="result">
+              <h3 className="prize-word">First Prize</h3>
+            </div>
+          )}
         </div>
       </header>
     </div>
