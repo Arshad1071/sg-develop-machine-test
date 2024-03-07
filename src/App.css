@@ -13,8 +13,20 @@
   }
 }
 
+body {
+  margin: 0;
+  overflow: hidden; /* Hide scrollbar */
+  background-color: #000; /* Set a default background color */
+  background-image: url("../public/95f51328d9aecdddca170b9ab460634f.png"); /* Replace with the path to your galaxy background image */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Your existing styles... */
+
 .App-header {
-  background-color: #282c34;
+  background-color: transparent; /* Set the header background to transparent */
   min-height: 100vh;
   display: flex;
   flex-direction: column;

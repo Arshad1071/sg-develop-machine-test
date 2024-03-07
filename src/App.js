@@ -56,7 +56,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-          <h2>Lottery Spinner</h2>
+          <h2>Congratulations</h2>
+          {isResultDisplayed && (
+            <div className="result">
+              <h3 className="prize-word">First Prize</h3>
+            </div>
+          )}
           <div className="spinner-container">
             <div className={`spinner-numbers ${isSpinning ? "spinning" : ""}`}>
               {currentNumbers.map((number, index) => (
@@ -73,11 +78,6 @@ function App() {
           >
             {isSpinning ? "Spinning..." : "Spin"}
           </button>
-          {isResultDisplayed && (
-            <div className="result">
-              <h3 className="prize-word">First Prize</h3>
-            </div>
-          )}
         </div>
       </header>
     </div>
